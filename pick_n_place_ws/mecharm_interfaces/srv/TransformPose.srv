@@ -1,0 +1,6 @@
+# Request
+mecharm_interfaces/MecharmCoords base_pose  # Request: List of floating-point numbers
+---
+# Response
+bool error_code         # Error code (True = success, False = error)
+float32[] transformed_pose
