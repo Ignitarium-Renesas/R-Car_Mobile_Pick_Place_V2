@@ -72,8 +72,11 @@ ros2 launch rcar_demo run_demo.launch.py
 ```
 #### Step 6: Run HyCo Application (Websocket)
 ```bash
-ssh root@192.168.0.217
+# copy app_temp in to rcar board
+scp app_temp.zip root@192.168.0.217:~/
+unzip app_temp.zip
 
+ssh root@192.168.0.217
 cd app_temp
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/lib:/home/root/app_temp/onnxruntime-linux-aarch64-1.17.1/lib:/home/root/app_temp
 
