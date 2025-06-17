@@ -1,0 +1,7 @@
+# Request
+float64 move_length  # Request: floating point number indicating the x coords for pick up.
+int32 axis           # The axis along which movement should be made.
+---
+# Response
+bool error_code         # Error code (True = success, False = error)
+string error_message     # Description of the error
