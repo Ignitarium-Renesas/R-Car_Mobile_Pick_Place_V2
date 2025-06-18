@@ -73,8 +73,7 @@ ros2 launch rcar_demo run_demo.launch.py
 #### Step 6: Run HyCo Application (Websocket)
 ```bash
 # copy app_temp in to rcar board
-scp app_temp.zip root@192.168.0.217:~/
-unzip app_temp.zip
+scp -r HyCo_Infer_App/app_temp/ root@192.168.0.217:~/
 
 ssh root@192.168.0.217
 cd app_temp

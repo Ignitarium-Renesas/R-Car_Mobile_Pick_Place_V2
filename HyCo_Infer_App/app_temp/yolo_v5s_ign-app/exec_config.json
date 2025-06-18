@@ -1,0 +1,50 @@
+{
+	"app-opts": {
+		"frame_per_loop": 1,
+		"number_of_loops": 1,
+		"warmup": true
+	},
+	"compile-opts": {
+		"threads": 1,
+		"stream_input": false,
+		"print_inference": false
+	},
+	"inputs": {
+		"in0": {
+			"file": "yolo_v5s_ign-app/test_data/view.jpg",
+			"quantize": {
+				"scale": 0.003921329043805599,
+				"zero": -128
+			}
+		}
+	},
+	"outputs": {
+		"out0": [
+			{},
+			{}
+		]
+	},
+	"models": {
+		"dsp0": {
+			"file": "yolo_v5s_ign-app/models/model_dsp0.so",
+			"runtime": "tvm"
+		},
+		"nms0": {
+			"file": "yolo_v5s_ign-app/models/nms_yolov5.onnx",
+			"runtime": "onnx"
+		}
+	},
+	"connections": [
+		"in0[0]  -> dsp0[0]",
+		"dsp0[0] -> nms0[0]",
+		"nms0[0] -> out0[0]"
+	],
+	"workers": [
+		{
+			"steps": [
+				"dsp0",
+				"nms0"
+			]
+		}
+	]
+}
