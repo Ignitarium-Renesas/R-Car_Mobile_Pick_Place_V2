@@ -5,8 +5,8 @@ The **Mobile Pick and Place** project involves a robotic arm mounted on an Auton
  
 ### System Workflow
 1. **Navigation** : The AMR navigates from its current location to the designated pick and drop location using the Nav2 stack.
-2. **Object Detection and 3D/6D Pose Estimation( pose_estimation_pkg )**: A YOLO-based AI module identifies the object and uses it for estimating the pose of the object relative to the camera by utilizing Hyco compiler.
-3. **Pose Transformation**: The `rcar_communication` package transforms the pose from the camera frame to the base frame of the robotic arm.
+2. **Object Detection and 3D/6D Pose Estimation( pose_estimation_pkg )**: A YOLO-based AI module identifies the object and uses it for estimating the pose of the object relative to the camera by utilizing Hyco compiler. 
+3. **Pose Transformation**: The `rcar_communication` package transforms the pose from the camera frame to the base frame of the robotic arm. 
 4. **Pick-and-Place Operation**: Joint angles are calculated, and the robotic arm executes the pick-and-place task.
  
 ---
@@ -32,6 +32,9 @@ pip install pymycobot --upgrade
 cd R-Car_Mobile_Pick_Place_V2/pick_n_place_ws
 colcon build
 ```
+### 4. Flash the AMR code into Arduino
+Flash the code provided in this [folder](./Easy_mech_base_firmware/arduino_code_for_AMR_IMU.ino) in to arduino board. 
+***
 ## Run Application
 
 ### Step 1: Verify Connections
@@ -62,7 +65,7 @@ Open a terminal in the mecharm and launch the camera node:
 ```sh
 python3 Server_280.py
 ```
-#### Step 5: Run Rcar demo launch file
+### Step 5: Run Rcar demo launch file
 ```bash
 ssh root@192.168.0.217
 
@@ -70,11 +73,10 @@ docker start rcar
 docker exec -it rcar bash
 ros2 launch rcar_demo run_demo.launch.py
 ```
-#### Step 6: Run HyCo Application (Websocket)
+### Step 6: Run HyCo Application (Websocket)
 ```bash
 # copy app_temp in to rcar board
-scp app_temp.zip root@192.168.0.217:~/
-unzip app_temp.zip
+scp -r HyCo_Infer_App/app_temp/ root@192.168.0.217:~/
 
 ssh root@192.168.0.217
 cd app_temp
@@ -83,10 +85,18 @@ export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/lib:/home/root/app_temp/onnxruntime-l
 ./rcar_app_ws yolo_v5s_ign-app/exec_config.json
 ```
 
-#### Step 7: Start Demo
+### Step 7: Start Demo
 ```bash
 ssh root@192.168.0.217
 
 docker exec -it rcar bash
 ros2 param set /rcar_demo_node start_demo True
 ```
+***
+
+### Notes:
+- *Refer the [PCB_Files](./PCB_Files/) folder for Design related files*
+- *Refer this [README](./pick_n_place_ws/src/pose_estimation_pkg/README.md) for further instruction related to pose estimation.*
+- *Refer this [README](./HyCo_Infer_App/README.md) for further instructions related to HyCo Inference.*
+- Refer this [README](./pick_n_place_ws/src/rcar_communication/README.md) for further instructions related to Pose Transformation and services.
+****

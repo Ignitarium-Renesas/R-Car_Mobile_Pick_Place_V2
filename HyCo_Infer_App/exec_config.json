@@ -1,0 +1,43 @@
+{
+	"app-opts": {
+		"frame_per_loop": 1,
+		"number_of_loops": 1,
+		"warmup": false
+	},
+	"compile-opts": {
+		"threads": 1,
+		"stream_input": true,
+		"print_inference": true
+	},
+	"inputs": {
+		"in0": {
+			"folder": "yolo_v7t-app/test_data_img",
+			"quantize": { "scale": 0.003919653594493866, "zero": -128 }
+		}
+	},
+	"outputs": {
+		"out0": [{}, {}]
+	},
+	"models": {
+		"dsp0": {
+			"file": "yolo_v7t-app/models/model_dsp0.so",
+			"runtime": "tvm"
+		},
+		"post0": {
+			"file": "yolo_v7t-app/models/yolov7_postprocess_Repartition_IoU5_max50_pretopk1000.onnx",
+			"runtime": "onnx"
+		}
+	},
+	"connections": [
+		"in0[0]   -> dsp0[0]",
+		"dsp0[0]  -> post0[0]",
+		"dsp0[1]  -> post0[1]",
+		"post0[0] -> out0[0]",
+		"post0[1] -> out0[1]"
+		
+	],
+	"workers": [
+		{ "steps": [ "dsp0", "post0" ] }
+
+	]
+}

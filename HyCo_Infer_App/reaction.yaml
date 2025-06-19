@@ -1,0 +1,90 @@
+# experiment:
+#   model_name: yolo-qdq
+#   task: tvm_cch
+#   action: app
+#   line: onnx
+#   target: v4h2
+#   convert_configs:
+#     tvm:
+#       host: 192.168.0.206
+#       port: 25
+#       keep_app_folder: true
+#       remove_input_quantize: true       
+#       remove_output_dequantize: true 
+experiment:
+  model_name: YOLO_v7t-app
+  task: tvm_cch
+  action: app
+  line: onnx
+  target: v4h2
+  convert_configs:
+    tvm:
+      host: 192.168.0.206
+      port: 9090
+      keep_app_folder: True # to keep artifacts on board for rerun
+      remove_input_quantize: True
+      remove_output_dequantize: True
+
+# experiment:
+#   model_name: Igni # Model name same as given during registration (reaction bond)
+#   task: tvm_cdh
+#   # Task: tvm_cpu, tvm_cch (Board CNNIP+CPU) or tvm_cdh (BoardCNNIP+DSP)
+#   action: go
+#   line: onnx
+#   target: v4h2
+#   # Target hardware: v4h2 or v4m
+#   deploy_configs:
+#     device: cpu
+#   convert_configs:
+#     tvm:
+#       host: 000.000.0.00
+#       port: 0000
+#       passwd: fleet_pass
+#       custom_node_config_path: "configs/custom_node/yolov8_config.json" #rcar-xos/v3.34.0/tools/hyco/reaction/configs/custom_node/yolov8_config.json
+
+# experiment:
+#   model_name: C
+#   task: tvm_cch
+#   action: app
+#   line: onnx
+#   target: v4h2
+#   convert_configs:
+#     tvm:
+#       host: 192.168.40.101
+#       port: 9090
+#       # keep_app_folder: true # to keep artifacts on board for rerun
+#       # remove_input_quantize: True
+#       # remove_output_dequantize: True
+#       # custom_node_config_path: "configs/custom_node/yolov5_config.json"
+
+
+# experiment:
+#   model_name: Bav
+#   # Model name same as given during registration(reaction bond)
+#   task: tvm_cdh
+#   # Task: tvm_cpu, tvm_cch (Board CNNIP+CPU) ortvm_cdh (Board CNNIP+DSP)
+#   action: go
+#   line: onnx
+#   command: python3 Inference_Y/inference.py 
+#   target: v4h2
+#   # Target hardware: v4h2 or v4m
+#   convert_configs:
+#     # tvm: 
+#     host: 127.0.0.1
+#     port: 9090
+
+# experiment:
+#   model_name: hardnet68ds
+#   # Model name as registered in REACTION
+#   task: tvm_cdh
+#   # Task: tvm_cpu, tvm_cch (CNNIP+CPU), or tvm_cdh (CNNIP+DSP)
+#   action: agility
+#   # Specify latency measurement action
+#   line: onnx
+#   target: v4h2
+#   # Target hardware: v4h2 or v4m
+#   convert_configs:
+#     tvm:
+#       host: 000.000.0.00
+#       # V4X host address
+#       port: 0000
