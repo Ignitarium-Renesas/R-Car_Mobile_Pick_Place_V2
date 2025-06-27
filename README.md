@@ -26,6 +26,9 @@ git clone https://github.com/Ignitarium-Renesas/R-Car_Mobile_Pick_Place_V2.git
 cd R-Car_Mobile_Pick_Place_V2/pick_n_place_ws/
 pip install -r src/pose_estimation_pkg/requirements.txt 
 pip install pymycobot --upgrade 
+
+cd R-Car_Mobile_Pick_Place_V2/pick_n_place_ws/src/Project-Rover-Robot
+npm i 
 ```
 ### 3. Build the Workspace
 ```sh
@@ -84,13 +87,39 @@ export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/lib:/home/root/app_temp/onnxruntime-l
 
 ./rcar_app_ws yolo_v5s_ign-app/exec_config.json
 ```
+### Step 7: Start and enter the Docker container
 
-### Step 7: Start Demo
 ```bash
-ssh root@192.168.0.217
+ssh root@192.168.0.217 
 
-docker exec -it rcar bash
-ros2 param set /rcar_demo_node start_demo True
+docker start rcar 
+
+docker exec -it rcar bash 
+
+#run navigation modules:Bringup 
+
+ros2 launch rcar_robot base_bringup.launch.py 
+```
+### Step 8: Launch Navigation
+```bash
+ssh root@192.168.0.217 
+
+docker start rcar 
+
+docker exec -it rcar bash 
+
+#run navigation modules:Navigation 
+
+Ros2 launch rcar_robot rcar_navigation.launch.py 
+```
+
+### Step 9: Launch GUI & Start Demo
+```bash
+cd R-Car_Mobile_Pick_Place_V2/pick_n_place_ws/src/mycobot280/Project-Rover-Robot/ 
+node index.js 
+ 
+#Open a Browser and in search tab type: 
+http://localhost:5000/ 
 ```
 ***
 
